@@ -127,12 +127,17 @@ namespace Inlämningsuppgift2
 
             Console.WriteLine($"{Name}\n{Town}\n{Age}\n{Housing}\n{Family}\n{HousePet}\n{Hobby}\n{LatestWork}\n{FavoriteFood}\n{FavoriteMusic}\n{MotProg}\n");
         }
-    }
 
-    static class Functions
-    {
+        public void ConsoleAllInfoList(List<BasGrupp> l)
+        {
+            foreach (BasGrupp b in l)
+            {
+                b.ConsoleAllInfo();
+            }
 
-        public static void FillGroupInfo(List<BasGrupp> l)
+        }
+
+        public void FillGroupInfo(List<BasGrupp> l)
         {
 
             l.Add(new BasGrupp("David Josef Frödin", "Sundbyberg", 25, "Lägenhet", "Det vanliga", "Inga", "Verksamhetschef", "Filosof", "Ryskt", "Rock", "blandning mellan kreativtet och kul"));
@@ -147,8 +152,124 @@ namespace Inlämningsuppgift2
             l.Add(new BasGrupp("Farzane Zafarzade", "Karlstad", 32, "Lägenhet", "Man", "inga", "IT-support", "Träning", "Pastarätter", "Lugn musik", "Ballt"));
         }
 
-        public static void Startup (List<BasGrupp> listBaseGroup)
+        public void DecisionGroupInfo(List<BasGrupp> l)
         {
+
+            string input;
+            BasGrupp B = new BasGrupp();
+
+            Console.WriteLine("Vill du ha information om en specifik deltagare eller allihopa?" + "\n");
+
+            // du kan skriva ut alla namn här. 
+
+            Console.WriteLine("1. Skriv deltagarens namn för att skriva ut en specifik deltagare");
+            Console.WriteLine("2. Skriv 'alla' för att allihopa");
+            input = Console.ReadLine();
+
+
+            if (input == "alla")
+            {
+                B.ConsoleAllInfoList(l);
+            }
+            else
+            {
+                B.OnePersonInfo(input, l);
+            }
+
+        }
+
+        public void OnePersonInfo(string input, List<BasGrupp> l)
+        {
+            BasGrupp temp;
+            bool noName = true;
+
+            for (int i = 0; i < l.Count(); i++)
+            {
+                temp = l[i];
+                if (input.Equals(temp.Name))
+                {
+                    temp.ConsoleAllInfo();
+                    noName = false;
+                    break;
+                }
+
+            }
+
+            if (noName)
+            {
+                Console.WriteLine("Namnet finns inte, pröva vänligen igen");
+            }
+        }
+
+        public void AllNamesGroup(List<BasGrupp> l)
+        {
+
+            List<string> listNames = new List<string>();
+            int i = 0;
+            foreach (BasGrupp b in l)
+            {
+                i++;
+                listNames.Add(b.Name);
+            }
+
+            Console.WriteLine(String.Join(", ", listNames));
+            Console.WriteLine($"Det är totalt {l.Count()} personer i din grupp" + "\n");
+
+        }
+
+        public void TotalAgeGroup (List<BasGrupp> l)
+        {
+            int age;
+            int totalAge = 0;
+
+            foreach(BasGrupp b in l)
+            {
+                age = b.Age;
+                totalAge += age;
+            }
+
+            Console.WriteLine($"Den totala åldern är {totalAge} år, ballt!");
+
+        }
+
+        public void RemoveMember (List<BasGrupp> l)
+        {
+            string input;
+            BasGrupp temp;
+            bool exist = true;
+
+            Console.WriteLine("Skriv vänligen in namnet på personen som du vill ta bort");
+            input = Console.ReadLine();
+
+            for (int i = 0; i < l.Count(); i++)
+            {
+                temp = l[i];
+                if (input.Equals(temp.Name))
+                {
+                    Console.WriteLine($"{temp.Name} har blivit borttagen från gruppen, hur kunde du?!");
+                    l.Remove(temp);
+                    exist = false;
+                    break;
+                }
+
+            }
+
+            if (exist)
+            {
+                Console.WriteLine("Personen finns inte i gruppen, kanske bäst att inte ta bort hen?");
+            }
+        }
+
+    }
+
+    class Meny
+    {
+
+        public void Startup ()
+        {
+            BasGrupp B = new BasGrupp();
+            List<BasGrupp> listBaseGroup = new List<BasGrupp>();
+            B.FillGroupInfo(listBaseGroup);
 
             Console.WriteLine("Hej och välkommen till hemligheternas kammare, skriv vänligen in lösenordet");
             String input;
@@ -191,14 +312,16 @@ namespace Inlämningsuppgift2
                 switch (input)
                 {
                     case "1":
-                        Functions.AllNamesGroup(listBaseGroup);
+                        B.AllNamesGroup(listBaseGroup);
                         break;
                     case "2":
-                        Functions.DecisionGroupInfo(listBaseGroup);
+                        B.DecisionGroupInfo(listBaseGroup);
                         break;
                     case "3":
+                        B.TotalAgeGroup(listBaseGroup);
                         break;
                     case "4":
+                        B.RemoveMember(listBaseGroup);
                         break;
                     case "":
                         Console.Clear();
@@ -215,77 +338,11 @@ namespace Inlämningsuppgift2
 
         }
 
-        public static void ConsoleAllInfoList(List<BasGrupp> l)
-        {
-            foreach (BasGrupp b in l)
-            {
-                b.ConsoleAllInfo();
-            }
+       
 
-        }
-        public static void DecisionGroupInfo (List<BasGrupp> l)
-        {
+    
 
-            string input;
-
-            Console.WriteLine("Vill du ha information om en specifik deltagare eller allihopa?" + "\n");
-
-            // du kan skriva ut alla namn här. 
-
-            Console.WriteLine("1. Skriv deltagarens namn för att skriva ut en specifik deltagare");
-            Console.WriteLine("2. Skriv 'alla' för att allihopa");
-            input = Console.ReadLine();
-            
-
-            if (input == "alla")
-            {
-                Functions.ConsoleAllInfoList(l);
-            }
-            else
-            {
-                Functions.OnePersonInfo(input, l);
-            }
-
-        }
-
-        public static void OnePersonInfo(string input, List<BasGrupp> l)
-        {
-            BasGrupp temp;
-            bool noName = true;
-
-            for (int i = 0; i < l.Count(); i++)
-            {
-                temp = l[i];
-                if (input.Equals(temp.Name))
-                {
-                    temp.ConsoleAllInfo();
-                    noName = true;
-                    break;
-                }
-
-            }
-
-            if (noName)
-            {
-                Console.WriteLine("Namnet finns inte, pröva vänligen igen");
-            }
-        }
-
-        public static void AllNamesGroup(List<BasGrupp> l)
-        {
-
-            List<string> listNames = new List<string>();
-            int i = 0;
-            foreach (BasGrupp b in l)
-            {
-                i++;
-                listNames.Add(b.Name);
-            }
-
-            Console.WriteLine(String.Join(", ", listNames));
-            Console.WriteLine($"Det är totalt {l.Count()} personer i din grupp" + "\n");
-
-        }
+        
 
     }
 
@@ -294,18 +351,8 @@ namespace Inlämningsuppgift2
         static void Main(string[] args)
 
         {
-            List<BasGrupp> listBaseGroup = new List<BasGrupp>();
-            Functions.FillGroupInfo(listBaseGroup);
-            Functions.Startup(listBaseGroup);
-
-            /*
-            foreach (BasGrupp b in listBaseGroup)
-            {
-                b.ConsoleAllInfo(); 
-            } 
-            */
-
-            
+            Meny M = new Meny();
+            M.Startup();     
 
         }
     }
