@@ -96,9 +96,9 @@ namespace Inlämningsuppgift2
 
 
 
-    }
+    } // klass med fält för info om klasskamrater
 
-    class BasGrupp : KlassKamrat
+    class BasGrupp : KlassKamrat // klass med massa olika trevliga metoder 
     {
 
         public BasGrupp()
@@ -110,7 +110,7 @@ namespace Inlämningsuppgift2
         {
 
             Name = name;
-            Town = town; 
+            Town = town;
             Age = age;
             Housing = housing;
             Family = family;
@@ -122,13 +122,15 @@ namespace Inlämningsuppgift2
             MotProg = motProg;
         }
 
-        public void ConsoleAllInfo()
+        public void ConsoleAllInfo() // skriver ut info om en specifik deltagare 
         {
 
-            Console.WriteLine($"{Name}\n{Town}\n{Age}\n{Housing}\n{Family}\n{HousePet}\n{Hobby}\n{LatestWork}\n{FavoriteFood}\n{FavoriteMusic}\n{MotProg}\n");
+            Console.WriteLine($"Namn: {Name}\nStad: {Town}\nÅlder:{Age}\nBoende: {Housing}\nFamilj: {Family}\n" +
+                $"Husdjur: {HousePet}\nHobby: {Hobby}\nSenaste arbete: {LatestWork}\nFavoritmat: {FavoriteFood}\nFavoritmusik: {FavoriteMusic}\n" +
+                $"Motivering programmering: {MotProg}\n");
         }
 
-        public void ConsoleAllInfoList(List<BasGrupp> l)
+        public void ConsoleAllInfoList(List<BasGrupp> l) // skriver ut all info om alla medlemmar i basgruppen 
         {
             foreach (BasGrupp b in l)
             {
@@ -137,7 +139,7 @@ namespace Inlämningsuppgift2
 
         }
 
-        public void FillGroupInfo(List<BasGrupp> l)
+        public void FillGroupInfo(List<BasGrupp> l) // fyller en lista med alla info om basgruppen: "coffencode" 
         {
 
             l.Add(new BasGrupp("David Josef Frödin", "Sundbyberg", 25, "Lägenhet", "Det vanliga", "Inga", "Verksamhetschef", "Filosof", "Ryskt", "Rock", "blandning mellan kreativtet och kul"));
@@ -152,7 +154,7 @@ namespace Inlämningsuppgift2
             l.Add(new BasGrupp("Farzane Zafarzade", "Karlstad", 32, "Lägenhet", "Man", "inga", "IT-support", "Träning", "Pastarätter", "Lugn musik", "Ballt"));
         }
 
-        public void DecisionGroupInfo(List<BasGrupp> l)
+        public void DecisionGroupInfo(List<BasGrupp> l) // beslut om man vill skriva info om en person eller alla i gruppen
         {
 
             string input;
@@ -162,8 +164,8 @@ namespace Inlämningsuppgift2
 
             // du kan skriva ut alla namn här. 
 
-            Console.WriteLine("1. Skriv deltagarens namn för att skriva ut en specifik deltagare");
-            Console.WriteLine("2. Skriv 'alla' för att allihopa");
+            Console.WriteLine("1. Skriv deltagarens fullständiga namn för att skriva ut en specifik deltagare");
+            Console.WriteLine("2. Skriv 'alla' för att skriva ut allihopa");
             input = Console.ReadLine();
 
 
@@ -183,6 +185,8 @@ namespace Inlämningsuppgift2
             BasGrupp temp;
             bool noName = true;
 
+
+
             for (int i = 0; i < l.Count(); i++)
             {
                 temp = l[i];
@@ -201,7 +205,7 @@ namespace Inlämningsuppgift2
             }
         }
 
-        public void AllNamesGroup(List<BasGrupp> l)
+        public void AllNamesGroupSum(List<BasGrupp> l) // skriver ut alla namn i basgruppen samt antalet personer 
         {
 
             List<string> listNames = new List<string>();
@@ -215,14 +219,33 @@ namespace Inlämningsuppgift2
             Console.WriteLine(String.Join(", ", listNames));
             Console.WriteLine($"Det är totalt {l.Count()} personer i din grupp" + "\n");
 
+
+
         }
 
-        public void TotalAgeGroup (List<BasGrupp> l)
+        public void AllNamesGroup(List<BasGrupp> l) // skriver ut alla namn i basgruppen 
+        {
+
+            List<string> listNames = new List<string>();
+            int i = 0;
+            foreach (BasGrupp b in l)
+            {
+                i++;
+                listNames.Add(b.Name);
+            }
+
+            Console.WriteLine(String.Join(", ", listNames));
+            Console.WriteLine("");
+
+
+        }
+
+        public void TotalAgeGroup(List<BasGrupp> l) // skriver ut den sammanlagda åldern av alla i basgruppen
         {
             int age;
             int totalAge = 0;
 
-            foreach(BasGrupp b in l)
+            foreach (BasGrupp b in l)
             {
                 age = b.Age;
                 totalAge += age;
@@ -232,7 +255,7 @@ namespace Inlämningsuppgift2
 
         }
 
-        public void RemoveMember (List<BasGrupp> l)
+        public void RemoveMember(List<BasGrupp> l, List<BasGrupp> l2) // tar bort en medlem ur basgruppen
         {
             string input;
             BasGrupp temp;
@@ -248,6 +271,7 @@ namespace Inlämningsuppgift2
                 {
                     Console.WriteLine($"{temp.Name} har blivit borttagen från gruppen, hur kunde du?!");
                     l.Remove(temp);
+                    l2.Add(temp);
                     exist = false;
                     break;
                 }
@@ -260,15 +284,38 @@ namespace Inlämningsuppgift2
             }
         }
 
+        public void InHeaven(List<BasGrupp> l) // en metod som skriver ut alla som personen tagit bort vid avslut, det är lite roligt, höhöhö. 
+        {
+
+            List<string> listNames = new List<string>();
+            int i = 0;
+            foreach (BasGrupp b in l)
+            {
+                i++;
+                listNames.Add(b.Name);
+            }
+
+            Console.WriteLine("Du skickade följande personer till himmelen");
+            Console.WriteLine(String.Join(", ", listNames));
+            Console.WriteLine("");
+            Console.WriteLine("Må deras själar vila i frid");
+
+
+
+
+        }
+
     }
 
     class Meny
     {
-
-        public void Startup ()
+        public void Startup()
         {
             BasGrupp B = new BasGrupp();
+
             List<BasGrupp> listBaseGroup = new List<BasGrupp>();
+            List<BasGrupp> listRemovedMember = new List<BasGrupp>();
+
             B.FillGroupInfo(listBaseGroup);
 
             Console.WriteLine("Hej och välkommen till hemligheternas kammare, skriv vänligen in lösenordet");
@@ -306,53 +353,57 @@ namespace Inlämningsuppgift2
                 Console.WriteLine("3. Sammanlagda åldern av alla deltagare");
                 Console.WriteLine("4. Ta bort en i din grupp");
                 Console.WriteLine("q. Avsluta programmet");
-                Console.WriteLine("\n" + "INFORMATION: Tryck enter för att rensa fönstret");
                 input = Console.ReadLine();
 
+                // fundera generellt på formatering, 2 D array? 
                 switch (input)
                 {
                     case "1":
-                        B.AllNamesGroup(listBaseGroup);
+                        B.AllNamesGroupSum(listBaseGroup);
+                        ConsoleFunctions.NextStep();
                         break;
                     case "2":
+                        B.AllNamesGroup(listBaseGroup);
                         B.DecisionGroupInfo(listBaseGroup);
+                        ConsoleFunctions.NextStep();
                         break;
                     case "3":
                         B.TotalAgeGroup(listBaseGroup);
+                        ConsoleFunctions.NextStep();
                         break;
                     case "4":
-                        B.RemoveMember(listBaseGroup);
-                        break;
-                    case "":
-                        Console.Clear();
+                        B.AllNamesGroup(listBaseGroup);
+                        B.RemoveMember(listBaseGroup, listRemovedMember);
+                        ConsoleFunctions.NextStep();
                         break;
                     case "q":
                         keepGoing = false;
+                        B.InHeaven(listRemovedMember);
                         break;
-
                 }
-
-
-
             }
+        }
+    } // klass med menufunktioner
 
+    static class ConsoleFunctions
+    {
+
+        public static void NextStep()
+        {
+            Console.WriteLine("Tryck på vilken knapp som helst för att fortsätta");
+            Console.ReadLine();
+            Console.Clear();
         }
 
-       
-
-    
-
-        
-
-    }
+    } // klass med console,grejer, hade nog kunnat vara en funktion i Meny egentligen.
 
     class Program
     {
         static void Main(string[] args)
 
         {
-            Meny M = new Meny();
-            M.Startup();     
+            Meny M = new Meny(); // hade kunnat göra denna klass statisk, och därmed inte behövt göra en instas, vet dock ej för-eller nackdelarna med detta. 
+            M.Startup();
 
         }
     }
