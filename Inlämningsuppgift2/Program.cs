@@ -122,7 +122,7 @@ namespace Inlämningsuppgift2
             MotProg = motProg;
         }
 
-        public void ConsoleAllInfo() // skriver ut info om en specifik deltagare 
+        public void AllInfoPerson() // skriver ut info om en specifik deltagare 
         {
 
             Console.WriteLine($"Namn: {Name}\nStad: {Town}\nÅlder:{Age}\nBoende: {Housing}\nFamilj: {Family}\n" +
@@ -130,11 +130,11 @@ namespace Inlämningsuppgift2
                 $"Motivering programmering: {MotProg}\n");
         }
 
-        public void ConsoleAllInfoList(List<BasGrupp> l) // skriver ut all info om alla medlemmar i basgruppen 
+        public void AllInfoEveryone(List<BasGrupp> l) // skriver ut all info om alla medlemmar i basgruppen 
         {
             foreach (BasGrupp b in l)
             {
-                b.ConsoleAllInfo();
+                b.AllInfoPerson();
             }
 
         }
@@ -160,18 +160,18 @@ namespace Inlämningsuppgift2
             string input;
             BasGrupp B = new BasGrupp();
 
-            Console.WriteLine("Vill du ha information om en specifik deltagare eller allihopa?" + "\n");
+            Console.WriteLine("Vill du ha information om en specifik medlem eller allihopa?" + "\n");
 
             // du kan skriva ut alla namn här. 
 
-            Console.WriteLine("1. Skriv deltagarens fullständiga namn för att skriva ut en specifik deltagare");
-            Console.WriteLine("2. Skriv 'alla' för att skriva ut allihopa");
+            Console.WriteLine("$ Skriv deltagarens fullständiga namn för att skriva ut en specifik medlem");
+            Console.WriteLine("$ Skriv 'alla' för att skriva ut allihopa");
             input = Console.ReadLine();
 
 
             if (input == "alla")
             {
-                B.ConsoleAllInfoList(l);
+                B.AllInfoEveryone(l);
             }
             else
             {
@@ -192,7 +192,7 @@ namespace Inlämningsuppgift2
                 temp = l[i];
                 if (input.Equals(temp.Name))
                 {
-                    temp.ConsoleAllInfo();
+                    temp.AllInfoPerson();
                     noName = false;
                     break;
                 }
@@ -203,7 +203,7 @@ namespace Inlämningsuppgift2
             {
                 Console.WriteLine("Namnet finns inte, pröva vänligen igen");
             }
-        }
+        }// kollar input {namn} och skriver därefter ut info 
 
         public void AllNamesGroupSum(List<BasGrupp> l) // skriver ut alla namn i basgruppen samt antalet personer 
         {
@@ -395,7 +395,7 @@ namespace Inlämningsuppgift2
             Console.Clear();
         }
 
-    } // klass med console,grejer, hade nog kunnat vara en funktion i Meny egentligen.
+    } // klass med console grejer, hade nog kunnat vara en funktion i Meny egentligen.
 
     class Program
     {
