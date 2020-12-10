@@ -96,9 +96,9 @@ namespace Inlämningsuppgift2
 
 
 
-    } // klass med fält för info om klasskamrater
+    } // klass med fält för info om klasskamrater, egentligen redundant, men jag ville ärva lite, för skojs skull. 
 
-    class BasGrupp : KlassKamrat // klass med massa olika trevliga metoder 
+    class BasGrupp : KlassKamrat // klass av basgruppen 
     {
 
         public BasGrupp()
@@ -109,34 +109,25 @@ namespace Inlämningsuppgift2
         public BasGrupp(string name, string town, int age, string housing, string family, string housePet, string latestWork, string hobby, string favFood, string favMusic, string motProg)
         {
 
-            Name = name;
-            Town = town;
-            Age = age;
-            Housing = housing;
-            Family = family;
-            HousePet = housePet;
-            Hobby = hobby;
-            LatestWork = latestWork;
-            FavoriteFood = favFood;
-            FavoriteMusic = favMusic;
-            MotProg = motProg;
+            this.Name = name;
+            this.Town = town;
+            this.Age = age;
+            this.Housing = housing;
+            this.Family = family;
+            this.HousePet = housePet;
+            this.Hobby = hobby;
+            this.LatestWork = latestWork;
+            this.FavoriteFood = favFood;
+            this.FavoriteMusic = favMusic;
+            this.MotProg = motProg;
         }
 
-        public void AllInfoPerson() // skriver ut info om en specifik deltagare 
+        public void Describe() // förstod jag användningen av describe rätt här? (dv.s. att det är så vi brukar använda describe?)
         {
 
             Console.WriteLine($"Namn: {Name}\nStad: {Town}\nÅlder:{Age}\nBoende: {Housing}\nFamilj: {Family}\n" +
                 $"Husdjur: {HousePet}\nHobby: {Hobby}\nSenaste arbete: {LatestWork}\nFavoritmat: {FavoriteFood}\nFavoritmusik: {FavoriteMusic}\n" +
                 $"Motivering programmering: {MotProg}\n");
-        }
-
-        public void AllInfoEveryone(List<BasGrupp> l) // skriver ut all info om alla medlemmar i basgruppen 
-        {
-            foreach (BasGrupp b in l)
-            {
-                b.AllInfoPerson();
-            }
-
         }
 
         public void FillGroupInfo(List<BasGrupp> l) // fyller en lista med alla info om basgruppen: "coffencode" 
@@ -154,162 +145,11 @@ namespace Inlämningsuppgift2
             l.Add(new BasGrupp("Farzane Zafarzade", "Karlstad", 32, "Lägenhet", "Man", "inga", "IT-support", "Träning", "Pastarätter", "Lugn musik", "Ballt"));
         }
 
-        public void DecisionGroupInfo(List<BasGrupp> l) // beslut om man vill skriva info om en person eller alla i gruppen
-        {
-
-            string input;
-            BasGrupp B = new BasGrupp();
-
-            Console.WriteLine("Vill du ha information om en specifik medlem eller allihopa?" + "\n");
-
-            // du kan skriva ut alla namn här. 
-
-            Console.WriteLine("$ Skriv deltagarens fullständiga namn för att skriva ut en specifik medlem");
-            Console.WriteLine("$ Skriv 'alla' för att skriva ut allihopa");
-            input = Console.ReadLine();
-
-
-            if (input == "alla")
-            {
-                B.AllInfoEveryone(l);
-            }
-            else
-            {
-                B.OnePersonInfo(input, l);
-            }
-
-        }
-
-        public void OnePersonInfo(string input, List<BasGrupp> l)
-        {
-            BasGrupp temp;
-            bool noName = true;
-
-
-
-            for (int i = 0; i < l.Count(); i++)
-            {
-                temp = l[i];
-                if (input.Equals(temp.Name))
-                {
-                    temp.AllInfoPerson();
-                    noName = false;
-                    break;
-                }
-
-            }
-
-            if (noName)
-            {
-                Console.WriteLine("Namnet finns inte, pröva vänligen igen");
-            }
-        }// kollar input {namn} och skriver därefter ut info 
-
-        public void AllNamesGroupSum(List<BasGrupp> l) // skriver ut alla namn i basgruppen samt antalet personer 
-        {
-
-            List<string> listNames = new List<string>();
-            int i = 0;
-            foreach (BasGrupp b in l)
-            {
-                i++;
-                listNames.Add(b.Name);
-            }
-
-            Console.WriteLine(String.Join(", ", listNames));
-            Console.WriteLine($"Det är totalt {l.Count()} personer i din grupp" + "\n");
-
-
-
-        }
-
-        public void AllNamesGroup(List<BasGrupp> l) // skriver ut alla namn i basgruppen 
-        {
-
-            List<string> listNames = new List<string>();
-            int i = 0;
-            foreach (BasGrupp b in l)
-            {
-                i++;
-                listNames.Add(b.Name);
-            }
-
-            Console.WriteLine(String.Join(", ", listNames));
-            Console.WriteLine("");
-
-
-        }
-
-        public void TotalAgeGroup(List<BasGrupp> l) // skriver ut den sammanlagda åldern av alla i basgruppen
-        {
-            int age;
-            int totalAge = 0;
-
-            foreach (BasGrupp b in l)
-            {
-                age = b.Age;
-                totalAge += age;
-            }
-
-            Console.WriteLine($"Den totala åldern är {totalAge} år, ballt!");
-
-        }
-
-        public void RemoveMember(List<BasGrupp> l, List<BasGrupp> l2) // tar bort en medlem ur basgruppen
-        {
-            string input;
-            BasGrupp temp;
-            bool exist = true;
-
-            Console.WriteLine("Skriv vänligen in namnet på personen som du vill ta bort");
-            input = Console.ReadLine();
-
-            for (int i = 0; i < l.Count(); i++)
-            {
-                temp = l[i];
-                if (input.Equals(temp.Name))
-                {
-                    Console.WriteLine($"{temp.Name} har blivit borttagen från gruppen, hur kunde du?!");
-                    l.Remove(temp);
-                    l2.Add(temp);
-                    exist = false;
-                    break;
-                }
-
-            }
-
-            if (exist)
-            {
-                Console.WriteLine("Personen finns inte i gruppen, kanske bäst att inte ta bort hen?");
-            }
-        }
-
-        public void InHeaven(List<BasGrupp> l) // en metod som skriver ut alla som personen tagit bort vid avslut, det är lite roligt, höhöhö. 
-        {
-
-            List<string> listNames = new List<string>();
-            int i = 0;
-            foreach (BasGrupp b in l)
-            {
-                i++;
-                listNames.Add(b.Name);
-            }
-
-            Console.WriteLine("Du skickade följande personer till himmelen");
-            Console.WriteLine(String.Join(", ", listNames));
-            Console.WriteLine("");
-            Console.WriteLine("Må deras själar vila i frid");
-
-
-
-
-        }
-
     }
 
     class Meny
     {
-        public void Startup()
+        public void Startup() // hade kunnat dela upp inlogg och meny delen i två olika metoder. 
         {
             BasGrupp B = new BasGrupp();
 
@@ -324,7 +164,6 @@ namespace Inlämningsuppgift2
 
             while (true)
             {
-
 
                 input = Console.ReadLine();
 
@@ -355,38 +194,187 @@ namespace Inlämningsuppgift2
                 Console.WriteLine("q. Avsluta programmet");
                 input = Console.ReadLine();
 
-                // fundera generellt på formatering, 2 D array? 
                 switch (input)
                 {
                     case "1":
-                        B.AllNamesGroupSum(listBaseGroup);
+                        ConsoleFunctions.AllNamesGroupSum(listBaseGroup);
                         ConsoleFunctions.NextStep();
                         break;
                     case "2":
-                        B.AllNamesGroup(listBaseGroup);
-                        B.DecisionGroupInfo(listBaseGroup);
+                        ConsoleFunctions.AllNamesGroup(listBaseGroup);
+                        ConsoleFunctions.DecisionGroupInfo(listBaseGroup);
                         ConsoleFunctions.NextStep();
                         break;
                     case "3":
-                        B.TotalAgeGroup(listBaseGroup);
+                        ConsoleFunctions.TotalAgeGroup(listBaseGroup);
                         ConsoleFunctions.NextStep();
                         break;
                     case "4":
-                        B.AllNamesGroup(listBaseGroup);
-                        B.RemoveMember(listBaseGroup, listRemovedMember);
+                        ConsoleFunctions.AllNamesGroup(listBaseGroup);
+                        ConsoleFunctions.RemoveMember(listBaseGroup, listRemovedMember);
                         ConsoleFunctions.NextStep();
                         break;
                     case "q":
                         keepGoing = false;
-                        B.InHeaven(listRemovedMember);
+                        ConsoleFunctions.InHeaven(listRemovedMember);
                         break;
+                    default:
+                        Console.WriteLine("Brush, du skrev något fel, pröva igen");
+                        break;
+
                 }
             }
         }
-    } // klass med menufunktioner
+    } // klass med menyfunktioner
 
     static class ConsoleFunctions
+
     {
+
+        public static void AllNamesGroup(List<BasGrupp> l) // skriver ut alla namn i basgruppen 
+        {
+
+            List<string> listNames = new List<string>();
+            int i = 0;
+            foreach (BasGrupp b in l)
+            {
+                i++;
+                listNames.Add(b.Name);
+            }
+
+            Console.WriteLine(String.Join(", ", listNames));
+            Console.WriteLine("");
+
+
+        }
+
+
+
+
+
+        public static void AllNamesGroupSum(List<BasGrupp> l) // skriver ut alla namn i basgruppen samt antalet personer 
+        {
+
+            List<string> listNames = new List<string>();
+            int i = 0;
+            foreach (BasGrupp b in l)
+            {
+                i++;
+                listNames.Add(b.Name);
+            }
+
+            Console.WriteLine(String.Join(", ", listNames));
+            Console.WriteLine($"Det är totalt {l.Count()} personer i din grupp" + "\n");
+
+
+
+        }
+
+
+        public static void OnePersonInfo(string input, List<BasGrupp> l)
+        {
+            BasGrupp temp;
+            bool noName = true;
+
+            for (int i = 0; i < l.Count(); i++)
+            {
+                temp = l[i];
+                if (input.Equals(temp.Name))
+                {
+                    temp.Describe();
+                    noName = false;
+                    break;
+                }
+
+            }
+
+            if (noName)
+            {
+                Console.WriteLine("Namnet finns inte, pröva vänligen igen");
+            }
+        }// kollar input {namn} och skriver därefter ut info 
+
+
+        public static void DecisionGroupInfo(List<BasGrupp> l) // beslut om man vill skriva info om en person eller alla i gruppen
+        {
+
+            string input;
+            BasGrupp B = new BasGrupp();
+
+            Console.WriteLine("Vill du ha information om en specifik medlem eller allihopa?" + "\n");
+
+            // du kan skriva ut alla namn här. 
+
+            Console.WriteLine("$ Skriv deltagarens fullständiga namn för att skriva ut en specifik medlem");
+            Console.WriteLine("$ Skriv 'alla' för att skriva ut allihopa");
+            input = Console.ReadLine();
+
+
+            if (input == "alla")
+            {
+                ConsoleFunctions.AllInfoEveryone(l);
+            }
+            else
+            {
+                ConsoleFunctions.OnePersonInfo(input, l);
+            }
+
+        }
+
+
+        public static void AllInfoEveryone(List<BasGrupp> l) // skriver ut all info om alla medlemmar i basgruppen 
+        {
+            foreach (BasGrupp b in l)
+            {
+                b.Describe();
+            }
+
+        }
+
+
+        public static void RemoveMember(List<BasGrupp> l, List<BasGrupp> l2) // tar bort en medlem ur basgruppen
+        {
+            string input;
+            BasGrupp temp;
+            bool exist = true;
+
+            Console.WriteLine("Skriv vänligen in det fullständiga namnet (med mellanslag och allt) på personen som du vill ta bort");
+            input = Console.ReadLine();
+
+            for (int i = 0; i < l.Count(); i++)
+            {
+                temp = l[i];
+                if (input.Equals(temp.Name))
+                {
+                    Console.WriteLine($"{temp.Name} har blivit borttagen från gruppen, hur kunde du?!");
+                    l.Remove(temp);
+                    l2.Add(temp);
+                    exist = false;
+                    break;
+                }
+
+            }
+
+            if (exist)
+            {
+                Console.WriteLine("Personen finns inte i gruppen, kanske bäst att inte ta bort hen?");
+            }
+        }
+
+        public static void TotalAgeGroup(List<BasGrupp> l) // skriver ut den sammanlagda åldern av alla i basgruppen
+        {
+            int age;
+            int totalAge = 0;
+
+            foreach (BasGrupp b in l)
+            {
+                age = b.Age;
+                totalAge += age;
+            }
+
+            Console.WriteLine($"Den totala åldern är {totalAge} år, ballt!");
+
+        }
 
         public static void NextStep()
         {
@@ -395,14 +383,35 @@ namespace Inlämningsuppgift2
             Console.Clear();
         }
 
-    } // klass med console grejer, hade nog kunnat vara en funktion i Meny egentligen.
+        public static void InHeaven(List<BasGrupp> l) // en metod som skriver ut alla som personen tagit bort vid avslut, det är lite roligt, höhöhö. 
+        {
+
+            List<string> listNames = new List<string>();
+            int i = 0;
+            foreach (BasGrupp b in l)
+            {
+                i++;
+                listNames.Add(b.Name);
+            }
+
+            Console.WriteLine("Du skickade följande personer till himmelen");
+            Console.WriteLine(String.Join(", ", listNames));
+            Console.WriteLine("");
+            Console.WriteLine("Må deras själar vila i frid");
+
+
+
+
+        }
+
+    } // klass med statiska console metoder bör den vara icke-statisk egentligen? 
 
     class Program
     {
         static void Main(string[] args)
 
         {
-            Meny M = new Meny(); // hade kunnat göra denna klass statisk, och därmed inte behövt göra en instas, vet dock ej för-eller nackdelarna med detta. 
+            Meny M = new Meny(); // hade kunnat göra denna klass statisk, och därmed inte behövt göra en instans, vet dock ej för-eller nackdelarna med detta. Vad brukar man köra?  
             M.Startup();
 
         }
