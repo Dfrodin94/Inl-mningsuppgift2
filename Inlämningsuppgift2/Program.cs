@@ -100,7 +100,7 @@ namespace Inlämningsuppgift2
 
     class BasGrupp : KlassKamrat // klass av basgruppen 
     {
-
+        
         public BasGrupp()
         {
 
