@@ -235,10 +235,9 @@ namespace Inlämningsuppgift2
         {
 
             List<string> listNames = new List<string>();
-            int i = 0;
             foreach (BasGrupp b in l)
             {
-                i++;
+                
                 listNames.Add(b.Name);
             }
 
@@ -249,17 +248,12 @@ namespace Inlämningsuppgift2
         }
 
 
-
-
-
         public static void AllNamesGroupSum(List<BasGrupp> l) // skriver ut alla namn i basgruppen samt antalet personer 
         {
 
             List<string> listNames = new List<string>();
-            int i = 0;
             foreach (BasGrupp b in l)
             {
-                i++;
                 listNames.Add(b.Name);
             }
 
@@ -303,7 +297,6 @@ namespace Inlämningsuppgift2
 
             Console.WriteLine("Vill du ha information om en specifik medlem eller allihopa?" + "\n");
 
-            // du kan skriva ut alla namn här. 
 
             Console.WriteLine("$ Skriv deltagarens fullständiga namn för att skriva ut en specifik medlem");
             Console.WriteLine("$ Skriv 'alla' för att skriva ut allihopa");
@@ -381,7 +374,7 @@ namespace Inlämningsuppgift2
             Console.WriteLine("Tryck på vilken knapp som helst för att fortsätta");
             Console.ReadLine();
             Console.Clear();
-        }
+        } // hade kanske varit med logiskt att ha den i Meny Klassen... hmmm...
 
         public static void InHeaven(List<BasGrupp> l) // en metod som skriver ut alla som personen tagit bort vid avslut, det är lite roligt, höhöhö. 
         {
